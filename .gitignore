@@ -1,0 +1,19 @@
+.vscode
+__pycache__
+.mypy_cache
+.pytest_cache
+
+*.pyc
+*.pyo
+*.bak
+
+*.xz
+
+
+# *.txt
+# *.md
+
+*.priv.*
+
+# Sphinx
+docs/build/

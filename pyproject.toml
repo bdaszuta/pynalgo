@@ -1,0 +1,55 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pynalgo"
+version = "0.1.0"
+license = "BSD-3-Clause"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "numba",
+    "scipy",
+]
+
+[tool.setuptools.packages.find]
+include = ["pynalgo*"]
+
+[tool.ruff.lint]
+select = [
+  "E",     # pycodestyle
+  "F",     # pyflakes
+  # "I",   # isort
+  # "B",   # bugbear
+  # "UP",  # pyupgrade
+]
+
+fixable = ["ALL"]
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+ignore = [
+  "E731", # lambda vs def
+  "C90",  # mccabe complexity
+]
+
+[tool.ruff]
+
+line-length = 80
+indent-width = 2
+
+[tool.ruff.format]
+
+# Use double quotes for strings.
+quote-style = "double"
+indent-style = "space"
+
+# Respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Automatically detect the appropriate line ending.
+line-ending = "auto"
