@@ -4,7 +4,8 @@
 
 @author: Boris Daszuta
 @SPDX-License-Identifier: BSD-3-Clause
-@function: Quadrature weight computation: Chebyshev, Clenshaw-Curtis, Fourier, Jacobi, Legendre.
+@function: Quadrature weight computation: Chebyshev, Clenshaw-Curtis,
+           Fourier, Jacobi, Legendre.
 """
 
 

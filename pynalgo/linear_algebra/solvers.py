@@ -4,7 +4,8 @@
 
 @author: Boris Daszuta
 @SPDX-License-Identifier: BSD-3-Clause
-@function: Tridiagonal and pentadiagonal linear system solvers (Thomas algorithm, PTRANS-I).
+@function: Tridiagonal and pentadiagonal linear system solvers
+           (Thomas algorithm, PTRANS-I).
 
 """
 from numpy import (empty, )

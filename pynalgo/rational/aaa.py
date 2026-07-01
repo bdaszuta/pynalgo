@@ -224,7 +224,8 @@ def _aaa_real_core(z, f, tol, max_terms, z_required, use_lebesgue):
 
 def _aaa_core(z, f, tol, max_terms, z_required, use_lebesgue,
               complex_weights, kappa):
-  """AAA core: complex128 dtype, no cleanup. Complex weight perturbation is gated on kappa.
+  """AAA core: complex128 dtype, no cleanup. Complex weight perturbation
+  is gated on kappa.
   Note: complex_weights parameter is accepted but unused (always complex128)."""
   _dtype = np.complex128
   sz_rn = 0

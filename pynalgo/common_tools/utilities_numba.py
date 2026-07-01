@@ -8,23 +8,80 @@
            and idx_interchange.
 """
 from functools import partial
+import inspect
 
 from numpy import (asarray, empty)
-try:
-    from numba import jit, generated_jit
-except ImportError:
-    from numba import jit
-
-    # `generated_jit` removed in numba >= 0.60.
-    # Provide a wrapper that forwards to jit so that imports
-    # succeed for documentation builds.
-    def generated_jit(function=None, **options):
-        if function is None:
-            return lambda f: jit(f, **options)
-        return jit(function, **options)
+from numba import jit, njit
+from numba.extending import overload
 
 from pynalgo.common_tools.utilities_typing import (NDArray, Any, int64,
                                                    TYPE_CHECKING)
+
+
+def generated_jit(function=None, **options):
+    """Drop-in replacement for numba.generated_jit (removed >= 0.60).
+
+    Uses @overload for compile-time type specialization with an
+    @njit wrapper providing the Python-callable entry point.
+    Per-ndim specialization preserved — callable from both Python
+    and nopython contexts.
+
+    The wrapper uses explicit parameter names (not *args) so that
+    Python fills in default values before entering njit, ensuring
+    the overload always sees explicit argument types.
+
+    Parameters
+    ----------
+    function : callable or None
+        Type-inspector function receiving numba types and returning
+        a specialized callable implementation.
+    **options
+        JIT options forwarded to @njit and @overload.
+    """
+    options.pop('nopython', None)          # deprecated kwarg for njit
+
+    jit_options = {k: v for k, v in options.items()
+                   if k != 'error_model'}   # overload doesn't accept this
+
+    def _decorator(func):
+        sig = inspect.signature(func)
+        param_names = list(sig.parameters.keys())
+        defaults = {n: p.default for n, p in sig.parameters.items()
+                    if p.default is not inspect.Parameter.empty}
+
+        # Build stub with explicit parameter names
+        stub_src = ('def _stub(' + ', '.join(param_names) +
+                    '):\n    raise NotImplementedError')
+        ns = {}
+        exec(stub_src, ns)
+        _stub = ns['_stub']
+
+        overload(_stub, strict=False, jit_options=jit_options)(func)
+
+        # Build wrapper with explicit params + Python-level defaults
+        params_with_defaults = []
+        for name in param_names:
+            if name in defaults:
+                params_with_defaults.append(f'{name}={defaults[name]!r}')
+            else:
+                params_with_defaults.append(name)
+        wrapper_src = (
+            'def _jit_wrapper(' + ', '.join(params_with_defaults) + '):\n'
+            '    return _stub(' + ', '.join(param_names) + ')'
+        )
+        exec(wrapper_src, ns)
+        _jit_wrapper = ns['_jit_wrapper']
+
+        # Cache is disabled for the thin njit wrapper (exec'd code
+        # has no source file).  The @overload mechanism caches each
+        # per-type specialization independently.
+        options['cache'] = False
+        return njit(**options)(_jit_wrapper)
+
+    if function is None:
+        return _decorator
+    return _decorator(function)
+
 
 ###############################################################################
 # numba settings and convenience function
@@ -87,7 +144,8 @@ def idx_interchange(
     Index of an element to interchange.
 
   inplace : bool = False
-    Perform operation in-place (requires ndarray input; other array-like types are copied).
+    Perform operation in-place (requires ndarray input;
+    other array-like types are copied).
 
   Returns
   -------

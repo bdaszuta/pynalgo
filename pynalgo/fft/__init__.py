@@ -17,17 +17,11 @@ from pynalgo.fft._kernels import (_build_plan, _fft_exec)
 
 
 # ---------------------------------------------------------------------------
-# fft / ifft via generated_jit (per-ndim specialization at JIT-compilation time)
+# fft / ifft via JITG (per-ndim specialization at JIT-compilation time).
 #
-# NOTE: generated_jit is deprecated in Numba >= 0.60 but remains the
-# only mechanism for a single function callable from both Python and
-# nopython contexts with per-ndim specialization.  The replacement
-# @overload only triggers from within @njit callers, not from Python.
-# We suppress the deprecation warning at module level.
+# JITG uses @overload + @njit under the hood, providing per-ndim
+# specialization callable from both Python and nopython contexts.
 # ---------------------------------------------------------------------------
-
-import warnings
-warnings.filterwarnings('ignore', module='numba')
 
 
 if TYPE_CHECKING:
@@ -88,7 +82,7 @@ else:
     nd = x.ndim
 
     if nd == 1:
-      def _impl(x, axis):
+      def _impl(x, axis=-1):
         n = x.shape[0]
         plan = _build_plan(n)
         x_w = empty((1, n), dtype=c128)
@@ -102,7 +96,7 @@ else:
       return _impl
 
     if nd == 2:
-      def _impl(x, axis):
+      def _impl(x, axis=-1):
         nd2 = 2
         ax = axis if axis >= 0 else nd2 + axis
         m, n_orig = x.shape
@@ -132,7 +126,7 @@ else:
       return _impl
 
     if nd == 3:
-      def _impl(x, axis):
+      def _impl(x, axis=-1):
         nd3 = 3
         ax = axis if axis >= 0 else nd3 + axis
         s0, s1, s2 = x.shape
@@ -186,7 +180,7 @@ else:
       return _impl
 
     if nd == 4:
-      def _impl(x, axis):
+      def _impl(x, axis=-1):
         nd4 = 4
         ax = axis if axis >= 0 else nd4 + axis
         s0, s1, s2, s3 = x.shape
@@ -263,7 +257,7 @@ else:
       return _impl
 
     # nd >= 5: compute strides and use flat indexing
-    def _impl(x, axis):
+    def _impl(x, axis=-1):
       ndn = len(x.shape)
       ax = axis if axis >= 0 else ndn + axis
       n_fft = x.shape[ax]
@@ -340,7 +334,7 @@ else:
     nd = x.ndim
 
     if nd == 1:
-      def _impl(x, axis):
+      def _impl(x, axis=-1):
         n = x.shape[0]
         xc = empty(n, dtype=c128)
         for i in range(n):
@@ -352,7 +346,7 @@ else:
       return _impl
 
     if nd == 2:
-      def _impl(x, axis):
+      def _impl(x, axis=-1):
         nd2 = 2
         ax = axis if axis >= 0 else nd2 + axis
         n = x.shape[ax]
@@ -368,7 +362,7 @@ else:
       return _impl
 
     if nd == 3:
-      def _impl(x, axis):
+      def _impl(x, axis=-1):
         nd3 = 3
         ax = axis if axis >= 0 else nd3 + axis
         n = x.shape[ax]
@@ -386,7 +380,7 @@ else:
       return _impl
 
     # nd >= 4
-    def _impl(x, axis):
+    def _impl(x, axis=-1):
       ndn = len(x.shape)
       ax = axis if axis >= 0 else ndn + axis
       n = x.shape[ax]

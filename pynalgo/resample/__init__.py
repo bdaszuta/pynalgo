@@ -4,7 +4,8 @@
 
 @author: Boris Daszuta
 @SPDX-License-Identifier: BSD-3-Clause
-@function: Interpolation and extrapolation: barycentric, Lagrange, Neville, Richardson, smoothing.
+@function: Interpolation and extrapolation: barycentric, Lagrange,
+           Neville, Richardson, smoothing.
 """
 
 

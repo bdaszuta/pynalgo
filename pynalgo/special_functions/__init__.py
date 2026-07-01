@@ -4,7 +4,8 @@
 
 @author: Boris Daszuta
 @SPDX-License-Identifier: BSD-3-Clause
-@function: Special functions and orthogonal polynomials: grids, polynomial bases, gamma functions.
+@function: Special functions and orthogonal polynomials: grids,
+           polynomial bases, gamma functions.
 """
 
 

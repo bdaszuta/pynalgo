@@ -4,7 +4,8 @@
 
 @author: Boris Daszuta
 @SPDX-License-Identifier: BSD-3-Clause
-@function: Quadrature weight computation for Chebyshev, Jacobi, Legendre, Fourier, and Clenshaw-Curtis rules.
+@function: Quadrature weight computation for Chebyshev, Jacobi, Legendre,
+           Fourier, and Clenshaw-Curtis rules.
 
 Refs:
 [1]: Spectral methods for Time-Dependent Problems,

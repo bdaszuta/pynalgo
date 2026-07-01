@@ -4,7 +4,8 @@
 
 @author: Boris Daszuta
 @SPDX-License-Identifier: BSD-3-Clause
-@function: Number theory utilities: prime generation, factorization, GCD, Diophantine solver, Cooley-Tukey decomposition.
+@function: Number theory utilities: prime generation, factorization, GCD,
+           Diophantine solver, Cooley-Tukey decomposition.
 """
 
 

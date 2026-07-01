@@ -789,7 +789,8 @@ def poly_der_Gegenbauer(M : int,
   Uses the relation:
 
   .. math::
-     \frac{d^m}{dx^m} C_n^{(\lambda)}(x) = 2^m (\lambda)_m C_{n-m}^{(\lambda+m)}(x)
+     \frac{d^m}{dx^m} C_n^{(\lambda)}(x)
+     = 2^m (\lambda)_m C_{n-m}^{(\lambda+m)}(x)
 
   Parameters
   ----------
@@ -864,7 +865,8 @@ def poly_Ultraspherical(N : int,
                         x : NDArray[Any],
                         ret_ord_num : int=1) -> NDArray[float64]:
   r'''
-  Evaluation of normalized Ultraspherical polynomials (via Gegenbauer polynomials) [1].
+  Evaluation of normalized Ultraspherical polynomials
+  (via Gegenbauer polynomials) [1].
 
   Defined as the Gegenbauer polynomial normalized to unity at x = 1:
   :math:`P_n^{(\lambda)}(x) = C_n^{(\lambda)}(x) / C_n^{(\lambda)}(1)`.
@@ -933,7 +935,8 @@ def poly_der_Ultraspherical(M : int,
                             ret_der_num : int=1,
                             ret_ord_num : int=1) -> NDArray[float64]:
   '''
-  Evaluation of Ultraspherical polynomial derivatives (via Gegenbauer polynomials) [1].
+  Evaluation of Ultraspherical polynomial derivatives
+  (via Gegenbauer polynomials) [1].
 
   Parameters
   ----------

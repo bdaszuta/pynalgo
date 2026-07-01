@@ -85,7 +85,8 @@ def uniform_filter_1d(data, size):
   data : NDArray, shape (n_rows, n_cols)
       2D tabular data.
   size : int
-      Filter window width (should be odd for symmetric centering; even values produce an asymmetric window).
+      Filter window width (should be odd for symmetric centering;
+      even values produce an asymmetric window).
 
   Returns
   -------

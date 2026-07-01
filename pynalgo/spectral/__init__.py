@@ -4,7 +4,8 @@
 
 @author: Boris Daszuta
 @SPDX-License-Identifier: BSD-3-Clause
-@function: Spectral transforms and bases: DCT-I through DCT-IV, polynomial basis matrix construction.
+@function: Spectral transforms and bases: DCT-I through DCT-IV,
+           polynomial basis matrix construction.
 """
 
 

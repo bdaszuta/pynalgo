@@ -220,7 +220,8 @@ def array_dense_from_band_uniform(
   Parameters
   ----------
   banded : NDArray[Any]
-    1-D array of band coefficients (odd length) used to construct the dense matrix.
+    1-D array of band coefficients (odd length) used to construct
+    the dense matrix.
   N : int
     Resultant (N x N) shape.
 
@@ -643,7 +644,8 @@ def array_dot_bands(
   Parameters
   ----------
   bands : NDArray[Any]
-    Band matrix to dot with, shape should be (N, band_width) where N is arr.shape[axis].
+    Band matrix to dot with, shape should be (N, band_width)
+    where N is arr.shape[axis].
 
   arr : NDArray[Any]
     Array to dot.
@@ -1062,7 +1064,7 @@ def map_window_exp(x : NDArray[Any], delta : float = 0.) -> NDArray[Any]:
   >>> from numpy import array
   >>> x = array([0.0, 0.25, 0.5, 0.75, 1.0])
   >>> map_window_exp(x, delta=0.2)
-      array([0.        , 1.        , 1.        , 1.        , 0.        ])
+      array([0., 1., 1., 1., 0.])
   '''
   return piecewise(x,
     [(x == 0),

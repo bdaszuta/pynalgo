@@ -106,7 +106,8 @@ def _interp_lagrange_uniform_jit(X, F, X_I, order):
       else:
         hi = mid
 
-    # Stencil range: initially symmetric around xt (adjusted below for even orders)
+    # Stencil range: initially symmetric around xt
+    # (adjusted below for even orders)
     st_lo = lo - half
     if order % 2 == 0:
       # Even order: bias toward closest

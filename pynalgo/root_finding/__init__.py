@@ -4,7 +4,8 @@
 
 @author: Boris Daszuta
 @SPDX-License-Identifier: BSD-3-Clause
-@function: Spectral root-finding via Chebyshev proxy and companion matrix eigenvalue method.
+@function: Spectral root-finding via Chebyshev proxy and companion
+           matrix eigenvalue method.
 """
 
 

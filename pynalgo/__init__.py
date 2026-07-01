@@ -4,7 +4,10 @@
 
 @author: Boris Daszuta
 @SPDX-License-Identifier: BSD-3-Clause
-@function: Python numerical algorithms library: spectral methods, grids, differentiation, integration, interpolation, rational approximation (AAA), root-finding, FFT, DCT, number theory, linear algebra.
+@function: Python numerical algorithms library: spectral methods, grids,
+           differentiation, integration, interpolation, rational
+           approximation (AAA), root-finding, FFT, DCT, number theory,
+           linear algebra.
 """
 from importlib.metadata import PackageNotFoundError, version as _version
 
